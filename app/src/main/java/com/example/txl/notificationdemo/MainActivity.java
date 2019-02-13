@@ -37,15 +37,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.bt_basic_notification:
                 notification = notificationUtils.buildNotification(NotificationUtils.NotificationType.BasicNotification);
-                notificationUtils.getmNotificationManager().notify(12345,notification);
+                notificationUtils.getNotificationManager().notify(12345,notification);
                 break;
             case R.id.bt_long_notification:
                 notification = notificationUtils.buildNotification(NotificationUtils.NotificationType.LongNotification);
-                notificationUtils.getmNotificationManager().notify(12346,notification);
+                notificationUtils.getNotificationManager().notify(12346,notification);
                 break;
             case R.id.bt_start_activity_notification:
                 notification = notificationUtils.buildNotification(NotificationUtils.NotificationType.StartActivity);
-                notificationUtils.getmNotificationManager().notify(12346,notification);
+                notificationUtils.getNotificationManager().notify(12346,notification);
                 break;
         }
     }

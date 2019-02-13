@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
-import android.view.Menu;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -18,20 +17,20 @@ import androidx.core.app.NotificationCompat;
  * @author TXL
  * description :
  */
-public class NotificationUtils {
+class NotificationUtils {
     private static final String TAG = NotificationUtils.class.getSimpleName();
     private final NotificationManager mNotificationManager;
-    public final String CHANNEL_ID;
+    private final String CHANNEL_ID;
     private Context mContext;
 
-    public NotificationUtils(Context context) {
+    NotificationUtils(Context context) {
         mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         CHANNEL_ID = context.getPackageName();
         mContext = context;
     }
 
-    public NotificationManager getmNotificationManager() {
+    NotificationManager getNotificationManager() {
         return mNotificationManager;
     }
 
@@ -60,7 +59,7 @@ public class NotificationUtils {
         }
     }
 
-    public Notification buildNotification(NotificationType type){
+    Notification buildNotification(NotificationType type){
         if (isAndroidOOrHigher()) {
             createChannel();
         }
@@ -117,7 +116,7 @@ public class NotificationUtils {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext, CHANNEL_ID)
+        return new NotificationCompat.Builder(mContext, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("My notification")
                 .setContentText("Hello World!")
@@ -125,7 +124,6 @@ public class NotificationUtils {
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
-        return mBuilder;
     }
 
     private boolean isAndroidOOrHigher() {
