@@ -109,6 +109,7 @@ class NotificationUtils {
                 .setContentTitle("Long  NotificationTitle")
                 .setContentText("Long  NotificationContent")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
     }
 
     private NotificationCompat.Builder getStartActivityBuilder(){
