@@ -41,17 +41,18 @@ class NotificationUtils {
             CharSequence name = "MediaSession";
             // The user-visible description of the channel.
             String description = "MediaSession and MediaPlayer";
-            int importance = NotificationManager.IMPORTANCE_LOW;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
             // Configure the notification channel.
             mChannel.setDescription(description);
-            mChannel.enableLights(false);
+            mChannel.setShowBadge(true);
+//            mChannel.enableLights(false);
             // Sets the notification light color for notifications posted to this
             // channel, if the device supports this feature.
-            mChannel.setLightColor(Color.RED);
-            mChannel.enableVibration(false);
-            mChannel.setVibrationPattern(new long[]{0});
-            mChannel.setSound(null, null);
+//            mChannel.setLightColor(Color.RED);
+//            mChannel.enableVibration(false);
+//            mChannel.setVibrationPattern(new long[]{0});
+//            mChannel.setSound(null, null);
             mNotificationManager.createNotificationChannel(mChannel);
             Log.d(TAG, "createChannel: New channel created");
         } else {
@@ -78,6 +79,12 @@ class NotificationUtils {
                 break;
             case StartActivity:
                 builder = getStartActivityBuilder();
+                break;
+            case HeadUp:
+                builder = getHeadUpBuilder();
+                break;
+            case Badge:
+                builder = getBadgeBuilder();
                 break;
             default:
                 builder = getBasicBuilder();
@@ -127,6 +134,41 @@ class NotificationUtils {
                 .setAutoCancel(true);
     }
 
+    private NotificationCompat.Builder getHeadUpBuilder(){
+        Intent intent = new Intent(mContext, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
+
+        return new NotificationCompat.Builder(mContext, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("HeadUp title")
+                .setContentText("HeadUp content!")
+                .setFullScreenIntent(pendingIntent,true)
+                .setCategory(Notification.CATEGORY_EVENT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+    }
+
+    private NotificationCompat.Builder getBadgeBuilder(){
+        Intent intent = new Intent(mContext, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
+
+        return new NotificationCompat.Builder(mContext, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("badge title")
+                .setContentText("badge content!")
+                .setCategory(Notification.CATEGORY_EVENT)
+                .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setNumber(500)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+    }
+
     private boolean isAndroidOOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
@@ -134,6 +176,8 @@ class NotificationUtils {
     public enum  NotificationType{
         BasicNotification,
         LongNotification,
-        StartActivity
+        StartActivity,
+        HeadUp,
+        Badge
     }
 }
