@@ -15,18 +15,35 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="BasicNotification"/>
+            android:text="@string/basic_notification"
+            android:textAllCaps="false"/>
         <Button
             android:id="@+id/bt_long_notification"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="LongNotification"/>
+            android:text="@string/long_notification"
+            android:textAllCaps="false"/>
         <Button
             android:id="@+id/bt_start_activity_notification"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="StartActivityNotification"/>
+            android:text="@string/start_activity_notification"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/bt_head_up_notification"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/head_up_notification"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/bt_badge_notification"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="BadgeNotification"
+            android:textAllCaps="false"/>
     </LinearLayout>
 </ScrollView>
